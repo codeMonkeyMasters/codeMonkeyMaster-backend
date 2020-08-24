@@ -6,6 +6,7 @@ const corsMiddleWare = require("cors");
 const { PORT } = require("./config/constants");
 const authRouter = require("./routers/auth");
 const authMiddleWare = require("./auth/middleware");
+const exercises = require("./routers/exercisesRouter")
 
 const app = express();
 
@@ -115,11 +116,7 @@ if (process.env.DELAY) {
  *
  */
 
-/**
- * Routes
- *
- * Define your routes here (now that middlewares are configured)
- */
+app.use("/exercises", exercises)
 
 // GET endpoint for testing purposes, can be removed
 app.get("/", (req, res) => {
