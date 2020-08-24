@@ -1,6 +1,6 @@
-{
+module.exports = {
   "development": {
-    "url": "postgres://angzwyez:9_u0oDmJVDtG-SSczkd5rsaV1TI7G5Fe@kandula.db.elephantsql.com:5432/angzwyez",
+    "url": process.env.DATABASE_URL_DEV,
     "dialect": "postgres",
     "operatorsAliases": "0"
   },
