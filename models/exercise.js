@@ -22,12 +22,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    exp: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    completed: {
-      type: DataTypes.BOOLEAN,
+    content: {
+      type: DataTypes.TEXT,
       allowNull: false,
     }
   }, {

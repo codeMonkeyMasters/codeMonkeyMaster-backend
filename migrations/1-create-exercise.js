@@ -12,12 +12,8 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      exp: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      completed: {
-        type: Sequelize.BOOLEAN,
+      content: {
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       createdAt: {
