@@ -8,7 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      fullName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      image : {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -18,6 +22,10 @@ module.exports = {
         allowNull: false,
       },
       password: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      ranking: {
         type: Sequelize.STRING,
         allowNull: false,
       },
