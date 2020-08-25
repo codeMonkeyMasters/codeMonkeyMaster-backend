@@ -21,21 +21,22 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    level: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     answer: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
     incorrect1: {
       type: DataTypes.TEXT,
-      allowNull: false,
     },
     incorrect2: {
       type: DataTypes.TEXT,
-      allowNull: false,
     },
     incorrect3: {
       type: DataTypes.TEXT,
-      allowNull: false,
     },
     exerciseId: {
       type: DataTypes.INTEGER,

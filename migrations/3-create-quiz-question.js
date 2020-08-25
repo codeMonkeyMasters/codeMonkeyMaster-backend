@@ -12,21 +12,22 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
+      level : {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       answer: {
         type: Sequelize.TEXT,
         allowNull: false,
       },
       incorrect1: {
         type: Sequelize.TEXT,
-        allowNull: false,
       },
       incorrect2: {
         type: Sequelize.TEXT,
-        allowNull: false,
       },
       incorrect3: {
         type: Sequelize.TEXT,
-        allowNull: false,
       },
       exerciseId: {
         type: Sequelize.INTEGER,
