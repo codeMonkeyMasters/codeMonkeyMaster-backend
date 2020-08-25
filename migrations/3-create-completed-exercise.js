@@ -20,17 +20,24 @@ module.exports = {
       },
       exerciseId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-      references: {
-        model: "exercises",
-        key: "id",
+        references: {
+          model: "exercises",
+          key: "id",
       },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+      quizQuestionId: {
+      type: Sequelize.INTEGER,
+      references: {
+        model: "quizQuestions",
+        key: "id",
+        },
       onUpdate: "CASCADE",
       onDelete: "CASCADE",
       },
       timeTaken: {
         type: Sequelize.TIME,
-        allowNull: false,
       },
       exp: {
         type: Sequelize.INTEGER,
