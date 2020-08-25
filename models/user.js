@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         through: "completedExercises",
         key: "userId",
       })
+      user.belongsToMany(models.quizQuestion, {
+        through: "completedQuizzes",
+        key: "userId",
+      })
     }
   }
   user.init(
@@ -36,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       ranking: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      totalExp: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       }
     },

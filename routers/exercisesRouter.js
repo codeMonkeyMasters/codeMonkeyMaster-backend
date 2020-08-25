@@ -1,8 +1,11 @@
 const { Router } = require("express")
 const authMiddleware = require("../auth/middleware")
 
+const User = require("../models").user
 const Exercises = require("../models").exercise
 const CompletedExercises = require("../models").completedExercise
+const QuizQuestions = require("../models").quizQuestion
+const CompletedQuizzes = require("../models").completedQuiz
 
 const router = new Router()
 
@@ -44,6 +47,57 @@ router.get(
             } else {
                 res.status(202).send(sortedExercisesCompleted)
             }
+
+        } catch(error){
+            next(error)
+        }
+    }
+)
+
+router.patch(
+    "/:id/quiz/completed",
+    authMiddleware,
+    async(req, res, next) => {
+        const userIdNeeded = req.user.id
+        // console.log("user ID test", userIdNeeded)
+        if(!userIdNeeded){
+            res.status(401).send("Sorry you aren't authorized, please login/sign-up to authorize yourself.")
+        }
+
+        const quizIdNeeded = parseInt(req.params.id)
+        // console.log("quiz ID test", quizIdNeeded)
+        if(!quizIdNeeded){
+            res.status(400).send("The Url malfunctioned please refresh and try again.")
+        }
+
+        try{
+            const quizComplete = await CompletedQuizzes.create({
+                userId: userIdNeeded,
+                quizQuestionId: quizIdNeeded,
+                exp: 10,
+            })
+            console.log("created quiz test", quizComplete)
+            if(!quizComplete){
+                res.status(404).send("Your info couldnt be processed, refresh and try again.")
+            }
+
+            const userFound = await User.findByPk(userIdNeeded)
+            if(!userFound){
+                res.status(404).send("Oops, we seem to be lost please login/sign-up so we can find you.")
+            }
+
+            const updateExpUser = await userFound.increment("totalExp", { by: 10})
+            // console.log("exp update test", updateExpUser)
+            if(!updateExpUser){
+                res.status(400).send("Your exp wasnt updated please refresh and try again.")
+            } else {
+                delete updateExpUser.dataValues["password"]
+                res.status(202).send({
+                    user: {...updateExpUser.dataValues},
+                    completedQuiz: quizComplete,
+                })
+            }
+
 
         } catch(error){
             next(error)
@@ -113,8 +167,56 @@ router.patch(
             })
             if(!sendExercise){
                 res.status(404).send("We couldn't find you're completed exercises, please refresh and try again.")
+            }
+
+            const userFound = await User.findByPk(userIdNeeded)
+            if(!userFound){
+                res.status(404).send("Oops, we seem to be lost please login/sign-up so we can find you.")
+            }
+            
+            const updateUser = await userFound.increment("totalExp", { by: expInt})
+            if(!updateUser){
+                res.status(400).send("Oops, it seems yuor exp hasnt updated please refresh and try again.")
             } else {
-                res.status(202).send(sendExercise)
+                delete updateUser.dataValues["password"]
+                res.status(202).send({
+                    user: {...updateUser.dataValues},
+                    completed: sendExercise,
+                })
+            }
+
+        } catch(error){
+            next(error)
+        }
+    }
+)
+
+router.get(
+    "/:id/quiz",
+    authMiddleware,
+    async(req, res, next) => {
+
+        if(!req.user){
+            res.status(401).send("Sorry you aren't authorized, please login/sign-up to authorize yourself.")
+        }
+
+        const exerciseIdNeeded = parseInt(req.params.id)
+        // console.log("questions ID test", exerciseIdNeeded)
+        if(!exerciseIdNeeded){
+            res.status(400).send("Url malfunctioned, please refresh and try again.")
+        }
+
+        try{
+            const fecthQuizzes = await QuizQuestions.findAll({
+                where: {
+                    exerciseId: exerciseIdNeeded,
+                }
+            })
+            // console.log("fetced quiz questions", fecthQuizzes)
+            if(!fecthQuizzes){
+                res.status(404).send("It seems our quizzes have vanished, give us a moment will we find them. Refresh to help us.")
+            } else {
+                res.status(202).send(fecthQuizzes)
             }
 
         } catch(error){
