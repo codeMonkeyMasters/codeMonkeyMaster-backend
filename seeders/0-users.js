@@ -8,16 +8,20 @@ module.exports = {
       "users",
       [
         {
-          name: "testuser",
+          fullName: "testuser",
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS107CDBZ5T8vEcN6nhUbhOp2xngySEndTw_g&usqp=CAU",
           email: "test@test.com",
           password: bcrypt.hashSync("test1234", SALT_ROUNDS),
+          ranking: "Code Monkey",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          name: "dummy",
+          fullName: "dummy",
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS107CDBZ5T8vEcN6nhUbhOp2xngySEndTw_g&usqp=CAU",
           email: "a@a.com",
           password: bcrypt.hashSync("a", SALT_ROUNDS),
+          ranking: "Code Monkey",
           createdAt: new Date(),
           updatedAt: new Date(),
         },

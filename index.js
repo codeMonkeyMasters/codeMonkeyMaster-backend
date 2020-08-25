@@ -1,9 +1,13 @@
+require("dotenv").config()
+
 const express = require("express");
 const loggerMiddleWare = require("morgan");
 const corsMiddleWare = require("cors");
 const { PORT } = require("./config/constants");
 const authRouter = require("./routers/auth");
 const authMiddleWare = require("./auth/middleware");
+const exercises = require("./routers/exercisesRouter")
+const profile = require("./routers/ProfileRouter")
 
 const app = express();
 
@@ -113,11 +117,8 @@ if (process.env.DELAY) {
  *
  */
 
-/**
- * Routes
- *
- * Define your routes here (now that middlewares are configured)
- */
+app.use("/exercises", exercises)
+app.use("/profile", profile)
 
 // GET endpoint for testing purposes, can be removed
 app.get("/", (req, res) => {
