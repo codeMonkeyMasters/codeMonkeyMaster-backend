@@ -37,6 +37,10 @@ module.exports = (sequelize, DataTypes) => {
       ranking: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      totalExp: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       }
     },
     {
