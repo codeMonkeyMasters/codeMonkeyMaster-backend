@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         key: "userId",
       })
       user.belongsToMany(models.quizQuestion, {
-        through: "completedQuiz",
+        through: "completedQuizzes",
         key: "userId",
       })
     }

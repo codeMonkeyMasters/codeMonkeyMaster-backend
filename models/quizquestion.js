@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       quizQuestion.belongsToMany(models.user, {
-        through: "completedQuiz",
+        through: "completedQuizzes",
         key: "quizQuestionId",
       })
     }

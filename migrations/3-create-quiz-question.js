@@ -35,7 +35,7 @@ module.exports = {
           model: "exercises",
           key: "id",
         },
-        onUpdate: "CASACDE",
+        onUpdate: "CASCADE",
         onDelete: "SET NULL",
       },
       createdAt: {
