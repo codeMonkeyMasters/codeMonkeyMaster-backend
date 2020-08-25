@@ -9,22 +9,34 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       question: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull: false,
       },
       answer: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull: false,
       },
       incorrect1: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull: false,
       },
       incorrect2: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull: false,
       },
       incorrect3: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull: false,
       },
       exerciseId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "exercises",
+          key: "id",
+        },
+        onUpdate: "CASACDE",
+        onDelete: "SET NULL",
       },
       createdAt: {
         allowNull: false,

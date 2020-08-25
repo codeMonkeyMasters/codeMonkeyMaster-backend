@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         through: "completedExercises",
         key: "userId",
       })
+      user.belongsToMany(models.quizQuestion, {
+        through: "completedQuiz",
+        key: "userId",
+      })
     }
   }
   user.init(

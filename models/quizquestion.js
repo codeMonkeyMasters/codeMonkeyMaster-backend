@@ -10,16 +10,43 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      quizQuestion.belongsToMany(models.user, {
+        through: "completedQuiz",
+        key: "quizQuestionId",
+      })
     }
   };
   quizQuestion.init({
-    question: DataTypes.TEXT,
-    answer: DataTypes.TEXT,
-    incorrect1: DataTypes.TEXT,
-    incorrect2: DataTypes.TEXT,
-    incorrect3: DataTypes.TEXT,
-    exerciseId: DataTypes.INTEGER
+    question: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    answer: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    incorrect1: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    incorrect2: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    incorrect3: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    exerciseId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "exercises",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "SET NULL",
+    }
   }, {
     sequelize,
     modelName: 'quizQuestion',

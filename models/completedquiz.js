@@ -14,9 +14,30 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   completedQuiz.init({
-    userId: DataTypes.INTEGER,
-    quizQuestionId: DataTypes.INTEGER,
-    exp: DataTypes.INTEGER
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
+    },
+    quizQuestionId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "quizQuestions",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
+    },
+    exp: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'completedQuiz',
