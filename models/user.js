@@ -9,12 +9,23 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      user.belongsToMany(models.exercise, {
+        through: "completedExercises",
+        key: "userId",
+      })
+      user.belongsToMany(models.quizQuestion, {
+        through: "completedQuizzes",
+        key: "userId",
+      })
     }
   }
   user.init(
     {
-      name: {
+      fullName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      image: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -27,6 +38,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      ranking: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      totalExp: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      }
     },
     {
       sequelize,
