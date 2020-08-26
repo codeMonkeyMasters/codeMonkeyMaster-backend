@@ -196,7 +196,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        question: `Open Question? 
+        question: `
                     Sort the age of the monkeys from oldest to youngest.
                     const ageMonkeys = [50, 3, 23, 12, 1];
                     answer = [50,3,23,12,1]`,
@@ -207,7 +207,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        question: `Open Question? 
+        question: `
                     Fill in the console.logs so the expected output is correct.
                     const numbers = [1, 2, 3]
                     console.log(YOU"RE ANSWER)
@@ -221,7 +221,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        question: `Open Question? 
+        question: `
                     Use the .shift() method to get “Banana” out of the console.log
                     let fruits = ["Banana", "Orange", "Apple", "Mango"];
                     answer = "Banana"`,
@@ -232,7 +232,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        question: `Open Question? 
+        question: `
         There are 2 monkeys in the jungle; Rafiki and King Louie. 
         Abu, who is 15 years old, wants to join. change the following code so Abu will be added to the list of monkeys in the jungle.
         let monkeys = [
@@ -256,7 +256,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        question: `Open Question? 
+        question: `
                     Use the map function to double all of the numbers in the array.
                     const array = [1,2,3,4]`,
         level: "level 2",
@@ -266,7 +266,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        question: `Open Question? 
+        question: ` 
                     Monkeys love bananas! And hate broccoli! Please use filter to get only the bananas out of the array.
                     const food = [“banana", “broccoli”, “banana”, “broccoli”, “banana”, “broccoli”]`,
         level: "level 2",
@@ -276,7 +276,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        question: `Open Question? 
+        question: ` 
                     How many monkeys do we need to unscrew a light bulb? - more than 5 apparently- Please get us more than 5 monkeys out of the array.
                     const numberOfMonkeys= [3, 5, 7, 2, 9]`,
         level: "level 2",
@@ -286,7 +286,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        question: `Open Question? 
+        question: `
                     Monkey Popo has levelled up his skills and now finally has become a Code Master! Please remove his name from the list of code monkeys!
                     const listOfMonkeys = [“Rafiki”, “Bubbles”, “Curious George”, “Popo"]`,
         level: "level 2",
