@@ -26,7 +26,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     exerciseId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
         model: "exercises",
         key: "id",
@@ -34,9 +33,17 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: "CASCADE",
       onDelete: "CASCADE",
     },
+    quizQuestionId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "quizQuestions",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
+    },
     timeTaken: {
       type: DataTypes.TIME,
-      allowNull: false,
     },
     exp: {
       type: DataTypes.INTEGER,

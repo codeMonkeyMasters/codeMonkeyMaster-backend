@@ -71,7 +71,7 @@ router.patch(
         }
 
         try{
-            const quizComplete = await CompletedQuizzes.create({
+            const quizComplete = await CompletedExercises.create({
                 userId: userIdNeeded,
                 quizQuestionId: quizIdNeeded,
                 exp: 10,
@@ -106,7 +106,7 @@ router.patch(
 )
 
 router.patch(
-    "/:id/completed",
+    "/:id/completed/:qId",
     authMiddleware,
     async(req, res, next) => {
         const userIdNeeded = req.user.id
@@ -118,6 +118,12 @@ router.patch(
         const exerciseIdNeeded = parseInt(req.params.id)
         // console.log("exercise Id test", exerciseIdNeeded)
         if(!exerciseIdNeeded){
+            res.status(400).send("The Url malfunctioned please refresh and try again.")
+        }
+
+        const quizIdNeeded = parseInt(req.params.qId)
+        console.log("quiz id test", quizIdNeeded)
+        if(!quizIdNeeded){
             res.status(400).send("The Url malfunctioned please refresh and try again.")
         }
 
@@ -134,16 +140,17 @@ router.patch(
                 where: {
                     userId: userIdNeeded,
                     exerciseId: exerciseIdNeeded,
+                    quizQuestionId: quizIdNeeded,
                 }
             })
             ?
             await CompletedExercises.update({
                 timeTaken: time,
-                exp: expInt,
             },{
                 where: {
                     userId: userIdNeeded,
-                    exerciseId: exerciseIdNeeded
+                    exerciseId: exerciseIdNeeded,
+                    quizQuestionId: quizIdNeeded,
                 }
             })
             : 
@@ -161,6 +168,7 @@ router.patch(
                 where: {
                     userId: userIdNeeded,
                     exerciseId: exerciseIdNeeded,
+                    quizQuestionId: quizIdNeeded,
                     exp: expInt,
                     timeTaken: time,
                 }

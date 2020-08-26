@@ -11,9 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       quizQuestion.belongsToMany(models.user, {
-        through: "completedQuizzes",
+        through: "completedExercises",
         key: "quizQuestionId",
       })
+      quizQuestion.hasOne(models.exercise)
     }
   };
   quizQuestion.init({
