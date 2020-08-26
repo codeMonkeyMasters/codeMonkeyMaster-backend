@@ -5,7 +5,6 @@ const User = require("../models").user
 const Exercises = require("../models").exercise
 const CompletedExercises = require("../models").completedExercise
 const QuizQuestions = require("../models").quizQuestion
-const CompletedQuizzes = require("../models").completedQuiz
 
 const router = new Router()
 

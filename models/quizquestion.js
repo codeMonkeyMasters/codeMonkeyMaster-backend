@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         through: "completedExercises",
         key: "quizQuestionId",
       })
-      quizQuestion.hasOne(models.exercise)
+      quizQuestion.belongsTo(models.exercise)
     }
   };
   quizQuestion.init({
