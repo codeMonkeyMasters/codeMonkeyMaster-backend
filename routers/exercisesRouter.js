@@ -92,12 +92,13 @@ router.patch(
                 res.status(404).send("Oops, we seem to be lost please login/sign-up so we can find you.")
             }
 
-            if(userFound.totalExp > 0 && userFound.totalExp <= 19){
-                const updateExpUser = await userFound.increment("totalExp", { by: 10})
+            const updateExpUser = await userFound.increment("totalExp", { by: 10})
             // console.log("exp update test", updateExpUser)
             if(!updateExpUser){
                 res.status(400).send("Your exp wasnt updated please refresh and try again.")
-            } else {
+            }
+
+            if(userFound.totalExp > 0 && userFound.totalExp <= 29){
                 const updatedUser = await updateExpUser.update({
                     ranking: "Code Monkey",
                 })
@@ -110,13 +111,7 @@ router.patch(
                     user: {...userNeeded.dataValues},
                     completedQuiz: [quizComplete],
                 })
-            }
-            } else if(userFound.totalExp >= 20 &&  userFound.totalExp <= 79){
-                const updateExpUser = await userFound.increment("totalExp", { by: 10})
-            // console.log("exp update test", updateExpUser)
-            if(!updateExpUser){
-                res.status(400).send("Your exp wasnt updated please refresh and try again.")
-            } else {
+            } else if(userFound.totalExp >= 30 &&  userFound.totalExp <= 89){
                 const updatedUser = await updateExpUser.update({
                     ranking: "Coder",
                 })
@@ -129,13 +124,7 @@ router.patch(
                     user: {...userNeeded.dataValues},
                     completedQuiz: [quizComplete],
                 })
-            }
-            } else if(userFound.totalExp >= 80 && userFound.totalExp <= 169){
-                const updateExpUser = await userFound.increment("totalExp", { by: 10})
-            // console.log("exp update test", updateExpUser)
-            if(!updateExpUser){
-                res.status(400).send("Your exp wasnt updated please refresh and try again.")
-            } else {
+            } else if(userFound.totalExp >= 90 && userFound.totalExp <= 179){
                 const updatedUser = await updateExpUser.update({
                     ranking: "Code Wizard",
                 })
@@ -148,12 +137,6 @@ router.patch(
                     user: {...userNeeded.dataValues},
                     completedQuiz: [quizComplete],
                 })
-            }
-            } else {
-                const updateExpUser = await userFound.increment("totalExp", { by: 10})
-            // console.log("exp update test", updateExpUser)
-            if(!updateExpUser){
-                res.status(400).send("Your exp wasnt updated please refresh and try again.")
             } else {
                 const updatedUser = await updateExpUser.update({
                     ranking: "Code Master",
@@ -167,7 +150,6 @@ router.patch(
                     user: {...userNeeded.dataValues},
                     completedQuiz: [quizComplete],
                 })
-            }
             }
 
         } catch(error){
