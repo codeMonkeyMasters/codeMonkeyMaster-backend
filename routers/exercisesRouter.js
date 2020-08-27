@@ -54,7 +54,7 @@ router.get(
 )
 
 router.patch(
-    "/:id/quiz/completed",
+    "/:id/quiz/completed/:qId",
     authMiddleware,
     async(req, res, next) => {
         const userIdNeeded = req.user.id
@@ -63,9 +63,15 @@ router.patch(
             res.status(401).send("Sorry you aren't authorized, please login/sign-up to authorize yourself.")
         }
 
-        const quizIdNeeded = parseInt(req.params.id)
+        const quizIdNeeded = parseInt(req.params.qId)
         // console.log("quiz ID test", quizIdNeeded)
         if(!quizIdNeeded){
+            res.status(400).send("The Url malfunctioned please refresh and try again.")
+        }
+
+        const exerciseIdNeeded = parseInt(req.params.id)
+        // console.log("quiz ID test", exerciseIdNeeded)
+        if(!exerciseIdNeeded){
             res.status(400).send("The Url malfunctioned please refresh and try again.")
         }
 
@@ -73,6 +79,7 @@ router.patch(
             const quizComplete = await CompletedExercises.create({
                 userId: userIdNeeded,
                 quizQuestionId: quizIdNeeded,
+                exerciseId: exerciseIdNeeded,
                 exp: 10,
             })
             console.log("created quiz test", quizComplete)
@@ -93,7 +100,7 @@ router.patch(
                 delete updateExpUser.dataValues["password"]
                 res.status(202).send({
                     user: {...updateExpUser.dataValues},
-                    completedQuiz: quizComplete,
+                    completedQuiz: [quizComplete],
                 })
             }
 
