@@ -92,18 +92,83 @@ router.patch(
                 res.status(404).send("Oops, we seem to be lost please login/sign-up so we can find you.")
             }
 
-            const updateExpUser = await userFound.increment("totalExp", { by: 10})
+            if(userFound.totalExp > 0 && userFound.totalExp <= 19){
+                const updateExpUser = await userFound.increment("totalExp", { by: 10})
             // console.log("exp update test", updateExpUser)
             if(!updateExpUser){
                 res.status(400).send("Your exp wasnt updated please refresh and try again.")
             } else {
-                delete updateExpUser.dataValues["password"]
+                const updatedUser = await updateExpUser.update({
+                    ranking: "Code Monkey",
+                })
+                console.log("what happens here", updatedUser)
+                const userNeeded = await User.findByPk(updatedUser.id)
+                console.log("and then here", userNeeded)
+
+                delete userNeeded.dataValues["password"]
                 res.status(202).send({
-                    user: {...updateExpUser.dataValues},
+                    user: {...userNeeded.dataValues},
                     completedQuiz: [quizComplete],
                 })
             }
+            } else if(userFound.totalExp >= 20 &&  userFound.totalExp <= 79){
+                const updateExpUser = await userFound.increment("totalExp", { by: 10})
+            // console.log("exp update test", updateExpUser)
+            if(!updateExpUser){
+                res.status(400).send("Your exp wasnt updated please refresh and try again.")
+            } else {
+                const updatedUser = await updateExpUser.update({
+                    ranking: "Coder",
+                })
+                console.log("what happens here", updatedUser)
+                const userNeeded = await User.findByPk(updatedUser.id)
+                console.log("and then here", userNeeded)
 
+                delete updatedUser.dataValues["password"]
+                res.status(202).send({
+                    user: {...userNeeded.dataValues},
+                    completedQuiz: [quizComplete],
+                })
+            }
+            } else if(userFound.totalExp >= 80 && userFound.totalExp <= 169){
+                const updateExpUser = await userFound.increment("totalExp", { by: 10})
+            // console.log("exp update test", updateExpUser)
+            if(!updateExpUser){
+                res.status(400).send("Your exp wasnt updated please refresh and try again.")
+            } else {
+                const updatedUser = await updateExpUser.update({
+                    ranking: "Code Wizard",
+                })
+                console.log("what happens here", updatedUser)
+                const userNeeded = await User.findByPk(updatedUser.id)
+                console.log("and then here", userNeeded)
+
+                delete userNeeded.dataValues["password"]
+                res.status(202).send({
+                    user: {...userNeeded.dataValues},
+                    completedQuiz: [quizComplete],
+                })
+            }
+            } else {
+                const updateExpUser = await userFound.increment("totalExp", { by: 10})
+            // console.log("exp update test", updateExpUser)
+            if(!updateExpUser){
+                res.status(400).send("Your exp wasnt updated please refresh and try again.")
+            } else {
+                const updatedUser = await updateExpUser.update({
+                    ranking: "Code Master",
+                })
+                console.log("what happens here", updatedUser)
+                const userNeeded = await User.findByPk(updatedUser.id)
+                console.log("and then here", userNeeded)
+
+                delete userNeeded.dataValues["password"]
+                res.status(202).send({
+                    user: {...userNeeded.dataValues},
+                    completedQuiz: [quizComplete],
+                })
+            }
+            }
 
         } catch(error){
             next(error)
