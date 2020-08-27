@@ -228,6 +228,7 @@ router.patch(
             await CompletedExercises.create({
                 userId: userIdNeeded,
                 exerciseId: exerciseIdNeeded,
+                quizQuestionId: quizIdNeeded,
                 timeTaken: time,
                 exp: expInt,
             })
@@ -252,15 +253,85 @@ router.patch(
             if(!userFound){
                 res.status(404).send("Oops, we seem to be lost please login/sign-up so we can find you.")
             }
-            
+
             const updateUser = await userFound.increment("totalExp", { by: expInt})
             if(!updateUser){
                 res.status(400).send("Oops, it seems yuor exp hasnt updated please refresh and try again.")
+            }
+
+            if(userFound.totalExp > 0 && userFound.totalExp <= 29){
+                    const updatedUser = await User.update({
+                        ranking: "Code Monkey",
+                    },{
+                        where: {
+                            id: userIdNeeded,
+                        }
+                    })
+
+                    const userUpdated = await User.findByPk(userIdNeeded)
+        
+                    delete userUpdated.dataValues["password"]
+                    res.status(202).send({
+                        user: {...userUpdated.dataValues},
+                        completed: sendExercise,
+                })
+            } else if(userFound.totalExp >= 30 && userFound.totalExp <= 89){
+                    const updatedUser = await User.update({
+                        ranking: "Coder",
+                    },{
+                        where: {
+                            id: userIdNeeded,
+                        }
+                    })
+                    console.log("tell me what happens", updatedUser)
+                    const userUpdated = await User.findOne({
+                        where: {
+                            id: userIdNeeded,
+                            ranking: "Coder",
+                        }
+                    })
+                    console.log("did the user get updated",userUpdated)
+                    delete userUpdated.dataValues["password"]
+                    res.status(202).send({
+                        user: {...userUpdated.dataValues},
+                        completed: sendExercise,
+                })
+            } else if(userFound.totalExp >= 90 && userFound.totalExp <= 169){
+                    const updatedUser = await User.update({
+                        ranking: "Code Wizard",
+                    },{
+                        where: {
+                            id: userIdNeeded,
+                        }
+                    })
+                    console.log("tell me what happens", updatedUser)
+                    const userUpdated = await User.findOne({
+                        where: {
+                            id: userIdNeeded,
+                            ranking: "Code Wizard",
+                        }
+                    })
+                    console.log("did the user get updated",userUpdated)
+                    delete userUpdated.dataValues["password"]
+                    res.status(202).send({
+                        user: {...userUpdated.dataValues},
+                        completed: sendExercise,
+                })
             } else {
-                delete updateUser.dataValues["password"]
-                res.status(202).send({
-                    user: {...updateUser.dataValues},
-                    completed: sendExercise,
+                    const updatedUser = await User.update({
+                        ranking: "Code Master",
+                    },{
+                        where: {
+                            id: userIdNeeded,
+                        }
+                    })
+
+                    const userUpdated = await User.findByPk(userIdNeeded)
+
+                    delete userUpdated.dataValues["password"]
+                    res.status(202).send({
+                        user: {...userUpdated.dataValues},
+                        completed: sendExercise,
                 })
             }
 
