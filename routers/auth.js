@@ -21,7 +21,7 @@ router.post("/login", async (req, res, next) => {
 
     if (!user || !bcrypt.compareSync(password, user.password)) {
       return res.status(400).send({
-        message: "User with that email not found or password incorrect"
+        message: "User with that email not found or password incorrect",
       });
     }
 
@@ -36,24 +36,30 @@ router.post("/login", async (req, res, next) => {
 
 router.post("/signup", async (req, res) => {
   const { email, password, fullName, imageUrl } = req.body;
-  if (!email || !password || !name) {
+  console.log("email", email);
+  if (!email || !password || !fullName) {
     return res.status(400).send("Please provide an email, password and a name");
   }
-  const image = imageUrl
-  ? imageUrl
-  : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS107CDBZ5T8vEcN6nhUbhOp2xngySEndTw_g&usqp=CAU"
+  const image = () => {
+    if (imageUrl) {
+      return imageUrl;
+    } else {
+      return "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS107CDBZ5T8vEcN6nhUbhOp2xngySEndTw_g&usqp=CAU";
+    }
+  };
 
   try {
     const newUser = await User.create({
       email,
       password: bcrypt.hashSync(password, SALT_ROUNDS),
       fullName,
-      imageUrl: image,
+      image: image(),
       ranking: "Code Monkey",
       totalExp: 0,
     });
 
     delete newUser.dataValues["password"]; // don't send back the password hash
+    console.log("new user", newUser);
 
     const token = toJWT({ userId: newUser.id });
 
