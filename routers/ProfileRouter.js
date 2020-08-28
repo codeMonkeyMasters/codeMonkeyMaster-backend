@@ -17,20 +17,18 @@ router.patch(
             res.status(401).send("Sorry but you're not suppose to be here, please login/sign-up to continue.")
         }
 
-        const { fullName, image, email } = req.body
+        const { fullName, image } = req.body
         console.log(`
         full name: ${fullName}
         image: ${image}
         email: ${email}`)
-        if(!fullName || !image || !email){
+        if(!fullName){
             res.status(400).send("Please enter all valid credentails")
         }
 
         try{
             const updateUser = await User.update({
                 fullName,
-                image,
-                email,
             },{
                 where: {
                     id: userIdNeeded
