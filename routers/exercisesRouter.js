@@ -358,6 +358,25 @@ router.get(
 )
 
 router.get(
+    "/quiz/list",
+    authMiddleware,
+    async(req, res, next) => {
+        try{
+            const questions = await QuizQuestions.findAll()
+
+            if(!questions){
+                res.status(404).send("Sorry, it seems we couldn't find the questions, rest asured we are on it.")
+            } else {
+                res.status(202).send(questions)
+            }
+
+        } catch(error){
+            next(error)
+        }
+    }
+)
+
+router.get(
     "/list",
     authMiddleware,
     async(req, res, next) => {
