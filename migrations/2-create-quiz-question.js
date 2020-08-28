@@ -12,6 +12,13 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
+      example: {
+        type: Sequelize.TEXT,
+      },
+      hint: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+      },
       level : {
         type: Sequelize.STRING,
         allowNull: false,
